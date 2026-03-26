@@ -1,0 +1,608 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Prosper Charmel AFFOUKOU — Portfolio</title>
+<link href="https://fonts.googleapis.com/css2?family=Space+Mono:ital,wght@0,400;0,700;1,400&family=Syne:wght@400;600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #0d0d0d;
+    --bg2: #141414;
+    --bg3: #1a1a1a;
+    --accent: #4A90D9;
+    --accent2: #64B5F6;
+    --text: #e8e8e8;
+    --text-muted: #888;
+    --text-dim: #555;
+    --border: rgba(255,255,255,0.07);
+    --border-accent: rgba(74,144,217,0.3);
+    --card-bg: #161616;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'Syne', sans-serif;
+    line-height: 1.6;
+    overflow-x: hidden;
+  }
+
+  /* NAV */
+  nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+    display: flex; justify-content: space-between; align-items: center;
+    padding: 1.2rem 3rem;
+    background: rgba(13,13,13,0.92);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--border);
+  }
+  .nav-logo {
+    font-family: 'Space Mono', monospace;
+    font-size: 0.85rem;
+    color: var(--accent);
+    letter-spacing: 0.05em;
+  }
+  .nav-links { display: flex; gap: 2rem; list-style: none; }
+  .nav-links a {
+    font-size: 0.8rem; letter-spacing: 0.1em; text-transform: uppercase;
+    color: var(--text-muted); text-decoration: none;
+    transition: color 0.2s;
+  }
+  .nav-links a:hover { color: var(--accent); }
+  .lang-switch {
+    font-family: 'Space Mono', monospace;
+    font-size: 0.75rem; color: var(--text-muted);
+    background: none; border: 1px solid var(--border);
+    padding: 0.3rem 0.7rem; border-radius: 4px;
+    cursor: pointer; transition: all 0.2s; color: var(--accent);
+  }
+  .lang-switch:hover { border-color: var(--accent); background: rgba(74,144,217,0.08); }
+
+  /* HERO */
+  .hero {
+    min-height: 100vh;
+    display: flex; flex-direction: column; justify-content: center;
+    padding: 8rem 3rem 4rem;
+    position: relative; overflow: hidden;
+  }
+  .hero-grid {
+    position: absolute; inset: 0;
+    background-image:
+      linear-gradient(rgba(74,144,217,0.04) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(74,144,217,0.04) 1px, transparent 1px);
+    background-size: 60px 60px;
+  }
+  .hero-tag {
+    font-family: 'Space Mono', monospace;
+    font-size: 0.75rem; color: var(--accent);
+    letter-spacing: 0.2em; text-transform: uppercase;
+    margin-bottom: 1.5rem;
+    display: flex; align-items: center; gap: 0.8rem;
+  }
+  .hero-tag::before {
+    content: ''; display: block;
+    width: 2rem; height: 1px; background: var(--accent);
+  }
+  .hero h1 {
+    font-size: clamp(2.8rem, 7vw, 5.5rem);
+    font-weight: 800; line-height: 1.05;
+    letter-spacing: -0.02em;
+    margin-bottom: 1.5rem;
+  }
+  .hero h1 .accent { color: var(--accent); }
+  .hero-sub {
+    font-size: clamp(1rem, 2vw, 1.2rem);
+    color: var(--text-muted); max-width: 560px;
+    font-weight: 400; margin-bottom: 3rem;
+    line-height: 1.7;
+  }
+  .hero-cta {
+    display: flex; gap: 1rem; flex-wrap: wrap;
+  }
+  .btn-primary {
+    padding: 0.75rem 1.8rem;
+    background: var(--accent); color: #0d0d0d;
+    font-family: 'Syne', sans-serif; font-weight: 700;
+    font-size: 0.85rem; letter-spacing: 0.05em;
+    text-decoration: none; border-radius: 4px;
+    transition: all 0.2s; display: inline-block;
+  }
+  .btn-primary:hover { background: var(--accent2); transform: translateY(-1px); }
+  .btn-outline {
+    padding: 0.75rem 1.8rem;
+    border: 1px solid var(--border-accent); color: var(--accent);
+    font-family: 'Syne', sans-serif; font-weight: 600;
+    font-size: 0.85rem; letter-spacing: 0.05em;
+    text-decoration: none; border-radius: 4px;
+    transition: all 0.2s; display: inline-block;
+  }
+  .btn-outline:hover { background: rgba(74,144,217,0.08); transform: translateY(-1px); }
+  .hero-stats {
+    display: flex; gap: 3rem; margin-top: 4rem;
+    padding-top: 2rem; border-top: 1px solid var(--border);
+  }
+  .stat-num {
+    font-family: 'Space Mono', monospace;
+    font-size: 1.8rem; font-weight: 700; color: var(--accent);
+    display: block;
+  }
+  .stat-label {
+    font-size: 0.75rem; color: var(--text-muted);
+    letter-spacing: 0.1em; text-transform: uppercase;
+  }
+
+  /* SECTIONS */
+  section { padding: 6rem 3rem; }
+  .section-tag {
+    font-family: 'Space Mono', monospace;
+    font-size: 0.7rem; color: var(--accent);
+    letter-spacing: 0.25em; text-transform: uppercase;
+    margin-bottom: 1rem;
+    display: flex; align-items: center; gap: 0.8rem;
+  }
+  .section-tag::before {
+    content: ''; display: block;
+    width: 1.5rem; height: 1px; background: var(--accent);
+  }
+  .section-title {
+    font-size: clamp(1.8rem, 4vw, 2.8rem);
+    font-weight: 800; letter-spacing: -0.02em;
+    margin-bottom: 3rem;
+  }
+
+  /* ABOUT */
+  .about-grid {
+    display: grid; grid-template-columns: 1fr 1fr;
+    gap: 4rem; align-items: start;
+  }
+  .about-text p {
+    color: var(--text-muted); font-size: 1rem;
+    line-height: 1.8; margin-bottom: 1.2rem;
+  }
+  .about-text p strong { color: var(--text); }
+  .about-info { display: flex; flex-direction: column; gap: 1rem; }
+  .info-item {
+    display: flex; justify-content: space-between; align-items: center;
+    padding: 1rem 1.2rem;
+    background: var(--card-bg); border: 1px solid var(--border);
+    border-radius: 6px;
+  }
+  .info-label { font-size: 0.75rem; color: var(--text-dim); letter-spacing: 0.1em; text-transform: uppercase; }
+  .info-value { font-size: 0.9rem; color: var(--text); font-weight: 600; }
+
+  /* PROJETS */
+  .projects-grid {
+    display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+    gap: 1.5rem;
+  }
+  .project-card {
+    background: var(--card-bg); border: 1px solid var(--border);
+    border-radius: 8px; padding: 1.8rem;
+    transition: border-color 0.2s, transform 0.2s;
+    position: relative; overflow: hidden;
+  }
+  .project-card::before {
+    content: ''; position: absolute; top: 0; left: 0; right: 0;
+    height: 2px; background: var(--accent);
+    transform: scaleX(0); transform-origin: left;
+    transition: transform 0.3s;
+  }
+  .project-card:hover { border-color: var(--border-accent); transform: translateY(-3px); }
+  .project-card:hover::before { transform: scaleX(1); }
+  .project-featured {
+    border-color: var(--border-accent);
+    background: linear-gradient(135deg, #161616 0%, #0f1a24 100%);
+  }
+  .project-featured::before { transform: scaleX(1); }
+  .project-badge {
+    display: inline-block; margin-bottom: 1rem;
+    font-family: 'Space Mono', monospace;
+    font-size: 0.65rem; letter-spacing: 0.15em;
+    text-transform: uppercase; padding: 0.25rem 0.6rem;
+    border-radius: 3px;
+    background: rgba(74,144,217,0.12); color: var(--accent);
+    border: 1px solid var(--border-accent);
+  }
+  .project-badge.award {
+    background: rgba(239,159,39,0.12); color: #EF9F27;
+    border-color: rgba(239,159,39,0.3);
+  }
+  .project-title {
+    font-size: 1.15rem; font-weight: 700;
+    margin-bottom: 0.7rem; line-height: 1.3;
+  }
+  .project-desc {
+    font-size: 0.88rem; color: var(--text-muted);
+    line-height: 1.7; margin-bottom: 1.2rem;
+  }
+  .project-tags { display: flex; flex-wrap: wrap; gap: 0.4rem; }
+  .tag {
+    font-family: 'Space Mono', monospace;
+    font-size: 0.65rem; padding: 0.2rem 0.5rem;
+    border-radius: 3px; background: var(--bg3);
+    color: var(--text-dim); border: 1px solid var(--border);
+  }
+
+  /* COMPÉTENCES */
+  .skills-grid {
+    display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    gap: 1.5rem;
+  }
+  .skill-group {
+    background: var(--card-bg); border: 1px solid var(--border);
+    border-radius: 8px; padding: 1.5rem;
+  }
+  .skill-group-title {
+    font-size: 0.7rem; letter-spacing: 0.2em;
+    text-transform: uppercase; color: var(--accent);
+    font-family: 'Space Mono', monospace;
+    margin-bottom: 1rem;
+  }
+  .skill-item {
+    display: flex; align-items: center; gap: 0.8rem;
+    margin-bottom: 0.7rem;
+  }
+  .skill-dot {
+    width: 5px; height: 5px; border-radius: 50%;
+    background: var(--accent); flex-shrink: 0;
+  }
+  .skill-name { font-size: 0.88rem; color: var(--text); }
+
+  /* DISTINCTIONS */
+  .distinctions-list { display: flex; flex-direction: column; gap: 1rem; }
+  .distinction-item {
+    display: flex; gap: 1.5rem; align-items: flex-start;
+    padding: 1.2rem 1.5rem;
+    background: var(--card-bg); border: 1px solid var(--border);
+    border-radius: 8px; transition: border-color 0.2s;
+  }
+  .distinction-item:hover { border-color: var(--border-accent); }
+  .distinction-year {
+    font-family: 'Space Mono', monospace;
+    font-size: 0.8rem; color: var(--accent);
+    flex-shrink: 0; padding-top: 0.1rem;
+    min-width: 3rem;
+  }
+  .distinction-text { font-size: 0.9rem; color: var(--text); line-height: 1.5; }
+  .distinction-text span { color: var(--text-muted); font-size: 0.82rem; display: block; margin-top: 0.2rem; }
+
+  /* CONTACT */
+  .contact-inner {
+    max-width: 600px; margin: 0 auto; text-align: center;
+  }
+  .contact-inner p { color: var(--text-muted); margin-bottom: 2.5rem; font-size: 1rem; line-height: 1.7; }
+  .contact-links { display: flex; justify-content: center; gap: 1.2rem; flex-wrap: wrap; }
+  .contact-link {
+    display: flex; align-items: center; gap: 0.6rem;
+    padding: 0.7rem 1.4rem;
+    border: 1px solid var(--border); border-radius: 6px;
+    color: var(--text-muted); text-decoration: none;
+    font-size: 0.85rem; font-family: 'Space Mono', monospace;
+    transition: all 0.2s;
+  }
+  .contact-link:hover { border-color: var(--accent); color: var(--accent); background: rgba(74,144,217,0.06); }
+
+  /* FOOTER */
+  footer {
+    padding: 2rem 3rem; border-top: 1px solid var(--border);
+    display: flex; justify-content: space-between; align-items: center;
+  }
+  footer p { font-family: 'Space Mono', monospace; font-size: 0.72rem; color: var(--text-dim); }
+
+  @media (max-width: 768px) {
+    nav { padding: 1rem 1.5rem; }
+    .nav-links { display: none; }
+    section, .hero { padding-left: 1.5rem; padding-right: 1.5rem; }
+    .about-grid { grid-template-columns: 1fr; gap: 2rem; }
+    .hero-stats { gap: 1.5rem; }
+    footer { flex-direction: column; gap: 0.5rem; text-align: center; }
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="nav-logo">PA // Portfolio</div>
+  <ul class="nav-links">
+    <li><a href="#about" data-fr="À propos" data-en="About">À propos</a></li>
+    <li><a href="#projects" data-fr="Projets" data-en="Projects">Projets</a></li>
+    <li><a href="#skills" data-fr="Compétences" data-en="Skills">Compétences</a></li>
+    <li><a href="#awards" data-fr="Distinctions" data-en="Awards">Distinctions</a></li>
+    <li><a href="#contact" data-fr="Contact" data-en="Contact">Contact</a></li>
+  </ul>
+  <button class="lang-switch" id="langBtn">EN</button>
+</nav>
+
+<!-- HERO -->
+<section class="hero" id="home">
+  <div class="hero-grid"></div>
+  <div class="hero-tag" data-fr="Élève-Ingénieur · Génie Mathématique & Modélisation" data-en="Engineering Student · Mathematical Engineering & Modelling">Élève-Ingénieur · Génie Mathématique & Modélisation</div>
+  <h1>
+    Prosper<br>
+    Charmel<br>
+    <span class="accent">AFFOUKOU</span>
+  </h1>
+  <p class="hero-sub" data-fr="Je construis des systèmes intelligents. Des maths à la machine, du modèle au monde réel." data-en="I build intelligent systems. From mathematics to machine, from model to real world.">
+    Je construis des systèmes intelligents. Des maths à la machine, du modèle au monde réel.
+  </p>
+  <div class="hero-cta">
+    <a href="#projects" class="btn-primary" data-fr="Voir mes projets" data-en="See my projects">Voir mes projets</a>
+    <a href="https://github.com/Charmel7" class="btn-outline" target="_blank">GitHub — Charmel7</a>
+  </div>
+  <div class="hero-stats">
+    <div>
+      <span class="stat-num">1er</span>
+      <span class="stat-label" data-fr="Prix UNESCO mondial" data-en="UNESCO World Prize">Prix UNESCO mondial</span>
+    </div>
+    <div>
+      <span class="stat-num">5+</span>
+      <span class="stat-label" data-fr="Projets techniques" data-en="Technical projects">Projets techniques</span>
+    </div>
+    <div>
+      <span class="stat-num">5×</span>
+      <span class="stat-label" data-fr="Distinctions nationales" data-en="National awards">Distinctions nationales</span>
+    </div>
+  </div>
+</section>
+
+<!-- ABOUT -->
+<section id="about">
+  <div class="section-tag" data-fr="À propos" data-en="About me">À propos</div>
+  <h2 class="section-title" data-fr="Qui suis-je ?" data-en="Who am I?">Qui suis-je ?</h2>
+  <div class="about-grid">
+    <div class="about-text">
+      <p data-fr="<strong>Élève-ingénieur</strong> en Génie Mathématique et Modélisation à l'UNSTIM–ENSGMM, après deux années de <strong>Classes Préparatoires aux Grandes Écoles</strong> à l'INSPEI. Ma curiosité pour l'Intelligence Artificielle et les systèmes embarqués m'a conduit bien au-delà des cours." data-en="<strong>Engineering student</strong> in Mathematical Engineering at UNSTIM–ENSGMM, after two years of <strong>Preparatory Classes for Engineering Schools</strong> at INSPEI. My curiosity for AI and embedded systems has taken me well beyond the classroom.">
+        <strong>Élève-ingénieur</strong> en Génie Mathématique et Modélisation à l'UNSTIM–ENSGMM, après deux années de <strong>Classes Préparatoires aux Grandes Écoles</strong> à l'INSPEI. Ma curiosité pour l'Intelligence Artificielle et les systèmes embarqués m'a conduit bien au-delà des cours.
+      </p>
+      <p data-fr="Je ne m'intéresse pas à l'IA en spectateur. Je veux la comprendre, la construire, et la mettre au service des populations africaines — dans leurs réalités, et dans leurs langues." data-en="I don't engage with AI as a spectator. I want to understand it, build it, and put it at the service of African populations — in their realities, and in their languages.">
+        Je ne m'intéresse pas à l'IA en spectateur. Je veux la comprendre, la construire, et la mettre au service des populations africaines — dans leurs réalités, et dans leurs langues.
+      </p>
+    </div>
+    <div class="about-info">
+      <div class="info-item">
+        <span class="info-label" data-fr="Localisation" data-en="Location">Localisation</span>
+        <span class="info-value">Abomey-Djègbé, Bénin</span>
+      </div>
+      <div class="info-item">
+        <span class="info-label" data-fr="Formation" data-en="Education">Formation</span>
+        <span class="info-value">UNSTIM – ENSGMM</span>
+      </div>
+      <div class="info-item">
+        <span class="info-label" data-fr="Langues" data-en="Languages">Langues</span>
+        <span class="info-value">Français · Idaatcha · Anglais</span>
+      </div>
+      <div class="info-item">
+        <span class="info-label">GitHub</span>
+        <span class="info-value">github.com/Charmel7</span>
+      </div>
+      <div class="info-item">
+        <span class="info-label">Email</span>
+        <span class="info-value">prosperaffoukou@outlook.com</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PROJETS -->
+<section id="projects" style="background: var(--bg2);">
+  <div class="section-tag" data-fr="Projets" data-en="Projects">Projets</div>
+  <h2 class="section-title" data-fr="Ce que j'ai construit" data-en="What I've built">Ce que j'ai construit</h2>
+  <div class="projects-grid">
+
+    <div class="project-card project-featured">
+      <div class="project-badge award" data-fr="🏆 1er Prix UNESCO 2026" data-en="🏆 1st Prize UNESCO 2026">🏆 1er Prix UNESCO 2026</div>
+      <div class="project-title">Eauracle</div>
+      <p class="project-desc" data-fr="Système de prédiction et d'alerte aux inondations pour le bassin de l'Ouémé. Combinaison de données satellitaires et de stations hydrométriques low-cost (ESP32, pluviomètre). Alertes en langues locales aux populations exposées. Plateforme de collecte de fonds pilotée par l'OCHA." data-en="Flood prediction and alert system for the Ouémé basin. Combines satellite data with low-cost hydrometric stations (ESP32, rain gauge). Local-language alerts to at-risk populations. OCHA-piloted fundraising platform.">
+        Système de prédiction et d'alerte aux inondations pour le bassin de l'Ouémé. Combinaison de données satellitaires et de stations hydrométriques low-cost (ESP32, pluviomètre). Alertes en langues locales aux populations exposées.
+      </p>
+      <div class="project-tags">
+        <span class="tag">ESP32</span><span class="tag">Python</span><span class="tag">Data Science</span><span class="tag">IoT</span><span class="tag">NLP</span>
+      </div>
+    </div>
+
+    <div class="project-card">
+      <div class="project-badge" data-fr="IA · Optimisation" data-en="AI · Optimization">IA · Optimisation</div>
+      <div class="project-title" data-fr="Timetabling par ACO" data-en="Timetabling with ACO">Timetabling par ACO</div>
+      <p class="project-desc" data-fr="Résolution du problème d'affectation des groupes pédagogiques sur le site de Sogbo Aliho via l'algorithme de Colonie de Fourmis (Ant Colony Optimization). Optimisation sous contraintes de salles, horaires et groupes." data-en="Solving the pedagogical group assignment problem at Sogbo Aliho using Ant Colony Optimization (ACO). Multi-constraint optimization over rooms, schedules and groups.">
+        Résolution du problème d'affectation des groupes pédagogiques à l'UNSTIM via l'algorithme de Colonie de Fourmis (ACO). Optimisation sous contraintes de salles, horaires et groupes.
+      </p>
+      <div class="project-tags">
+        <span class="tag">Python</span><span class="tag">ACO</span><span class="tag">Optimisation</span><span class="tag">Combinatoire</span>
+      </div>
+    </div>
+
+    <div class="project-card">
+      <div class="project-badge" data-fr="Calcul Scientifique" data-en="Scientific Computing">Calcul Scientifique</div>
+      <div class="project-title" data-fr="Débruitage d'image — BLAS/LAPACK" data-en="Image Denoising — BLAS/LAPACK">Débruitage d'image — BLAS/LAPACK</div>
+      <p class="project-desc" data-fr="Application du calcul matriciel haute performance (BLAS/LAPACK) au débruitage d'image. Implémentation d'algorithmes d'algèbre linéaire numérique pour le traitement du signal." data-en="High-performance matrix computation (BLAS/LAPACK) applied to image denoising. Implementation of numerical linear algebra algorithms for signal processing.">
+        Application du calcul matriciel haute performance (BLAS/LAPACK) au débruitage d'image. Implémentation d'algorithmes d'algèbre linéaire numérique.
+      </p>
+      <div class="project-tags">
+        <span class="tag">C</span><span class="tag">BLAS</span><span class="tag">LAPACK</span><span class="tag">Algèbre Linéaire</span>
+      </div>
+    </div>
+
+    <div class="project-card">
+      <div class="project-badge" data-fr="Embarqué · Mobile" data-en="Embedded · Mobile">Embarqué · Mobile</div>
+      <div class="project-title" data-fr="Voiture Intelligente Autonome" data-en="Autonomous Smart Car">Voiture Intelligente Autonome</div>
+      <p class="project-desc" data-fr="Voiture autonome guidée par application mobile Flutter, avec évaluation de l'état des routes en temps réel via capteurs embarqués. Développée au sein du Club d'Électronique de l'INSPEI." data-en="Autonomous vehicle guided via Flutter mobile app, with real-time road condition assessment using embedded sensors. Built at the INSPEI Electronics Club.">
+        Voiture autonome guidée par application Flutter avec évaluation de l'état des routes en temps réel via capteurs embarqués. Club d'Électronique, INSPEI.
+      </p>
+      <div class="project-tags">
+        <span class="tag">Arduino</span><span class="tag">Flutter</span><span class="tag">ESP32</span><span class="tag">Capteurs</span>
+      </div>
+    </div>
+
+    <div class="project-card">
+      <div class="project-badge" data-fr="IA · Robotique" data-en="AI · Robotics">IA · Robotique</div>
+      <div class="project-title">PROTORVO-B</div>
+      <p class="project-desc" data-fr="Stage chez COSIT Bénin. Développement du logiciel embarqué d'un robot de désherbage automatisé en champ de maïs. Travail en équipe pluridisciplinaire Software/Hardware." data-en="Internship at COSIT Bénin. Development of embedded software for an automated weeding robot in maize fields. Cross-functional Software/Hardware team.">
+        Stage chez COSIT Bénin. Développement du logiciel embarqué d'un robot de désherbage automatisé en champ de maïs. Équipe pluridisciplinaire Software/Hardware.
+      </p>
+      <div class="project-tags">
+        <span class="tag">Embarqué</span><span class="tag">Robotique</span><span class="tag">Python</span><span class="tag">Agritech</span>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- COMPÉTENCES -->
+<section id="skills">
+  <div class="section-tag" data-fr="Compétences" data-en="Skills">Compétences</div>
+  <h2 class="section-title" data-fr="Ce que je maîtrise" data-en="What I master">Ce que je maîtrise</h2>
+  <div class="skills-grid">
+    <div class="skill-group">
+      <div class="skill-group-title" data-fr="Programmation" data-en="Programming">Programmation</div>
+      <div class="skill-item"><div class="skill-dot"></div><span class="skill-name">Python</span></div>
+      <div class="skill-item"><div class="skill-dot"></div><span class="skill-name">MATLAB</span></div>
+      <div class="skill-item"><div class="skill-dot"></div><span class="skill-name">C (BLAS/LAPACK)</span></div>
+      <div class="skill-item"><div class="skill-dot"></div><span class="skill-name">JavaScript</span></div>
+    </div>
+    <div class="skill-group">
+      <div class="skill-group-title" data-fr="Web & Mobile" data-en="Web & Mobile">Web & Mobile</div>
+      <div class="skill-item"><div class="skill-dot"></div><span class="skill-name">HTML / CSS</span></div>
+      <div class="skill-item"><div class="skill-dot"></div><span class="skill-name">PHP natif</span></div>
+      <div class="skill-item"><div class="skill-dot"></div><span class="skill-name">Flutter</span></div>
+    </div>
+    <div class="skill-group">
+      <div class="skill-group-title" data-fr="Embarqué & IoT" data-en="Embedded & IoT">Embarqué & IoT</div>
+      <div class="skill-item"><div class="skill-dot"></div><span class="skill-name">Arduino</span></div>
+      <div class="skill-item"><div class="skill-dot"></div><span class="skill-name">ESP32</span></div>
+      <div class="skill-item"><div class="skill-dot"></div><span class="skill-name">Capteurs embarqués</span></div>
+    </div>
+    <div class="skill-group">
+      <div class="skill-group-title" data-fr="Outils" data-en="Tools">Outils</div>
+      <div class="skill-item"><div class="skill-dot"></div><span class="skill-name">Git & GitHub</span></div>
+      <div class="skill-item"><div class="skill-dot"></div><span class="skill-name">LaTeX</span></div>
+      <div class="skill-item"><div class="skill-dot"></div><span class="skill-name">Microsoft Office</span></div>
+    </div>
+    <div class="skill-group">
+      <div class="skill-group-title" data-fr="Mathématiques appliquées" data-en="Applied Mathematics">Mathématiques appliquées</div>
+      <div class="skill-item"><div class="skill-dot"></div><span class="skill-name">Optimisation</span></div>
+      <div class="skill-item"><div class="skill-dot"></div><span class="skill-name">Calcul scientifique</span></div>
+      <div class="skill-item"><div class="skill-dot"></div><span class="skill-name">Algèbre linéaire numérique</span></div>
+      <div class="skill-item"><div class="skill-dot"></div><span class="skill-name">Modélisation</span></div>
+    </div>
+    <div class="skill-group">
+      <div class="skill-group-title" data-fr="Langues" data-en="Languages">Langues</div>
+      <div class="skill-item"><div class="skill-dot"></div><span class="skill-name" data-fr="Français (courant)" data-en="French (fluent)">Français (courant)</span></div>
+      <div class="skill-item"><div class="skill-dot"></div><span class="skill-name" data-fr="Idaatcha (maternelle)" data-en="Idaatcha (native)">Idaatcha (maternelle)</span></div>
+      <div class="skill-item"><div class="skill-dot"></div><span class="skill-name" data-fr="Anglais (intermédiaire)" data-en="English (intermediate)">Anglais (intermédiaire)</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- DISTINCTIONS -->
+<section id="awards" style="background: var(--bg2);">
+  <div class="section-tag" data-fr="Distinctions" data-en="Awards">Distinctions</div>
+  <h2 class="section-title" data-fr="Reconnaissance" data-en="Recognition">Reconnaissance</h2>
+  <div class="distinctions-list">
+    <div class="distinction-item">
+      <div class="distinction-year">2026</div>
+      <div class="distinction-text">
+        <span data-fr="🏆 1er Prix — Hackathon mondial Water4Future, UNESCO (ICIREWARD)" data-en="🏆 1st Prize — Water4Future World Hackathon, UNESCO (ICIREWARD)">🏆 1er Prix — Hackathon mondial Water4Future, UNESCO (ICIREWARD)</span>
+        <span data-fr="Projet Eauracle — Système de prédiction et d'alerte aux inondations" data-en="Project Eauracle — Flood prediction and alert system">Projet Eauracle — Système de prédiction et d'alerte aux inondations</span>
+      </div>
+    </div>
+    <div class="distinction-item">
+      <div class="distinction-year">2024</div>
+      <div class="distinction-text">
+        <span data-fr="Meilleur joueur — Tournoi Club Génie en Herbe (Club RFI), INSPEI" data-en="Best player — Génie en Herbe Tournament (RFI Club), INSPEI">Meilleur joueur — Tournoi Club Génie en Herbe (Club RFI), INSPEI</span>
+      </div>
+    </div>
+    <div class="distinction-item">
+      <div class="distinction-year">2023–24</div>
+      <div class="distinction-text">
+        <span data-fr="Demi-finaliste — Sixteen Soldiers Challenge, Kyfax" data-en="Semi-finalist — Sixteen Soldiers Challenge, Kyfax">Demi-finaliste — Sixteen Soldiers Challenge, Kyfax</span>
+        <span data-fr="Développement d'un agent intelligent de jeu — Équipe Bee Light" data-en="Development of an intelligent game agent — Team Bee Light">Développement d'un agent intelligent de jeu — Équipe Bee Light</span>
+      </div>
+    </div>
+    <div class="distinction-item">
+      <div class="distinction-year">2022</div>
+      <div class="distinction-text">
+        <span data-fr="1er Prix — Concours Excellence en Mathématiques, Parakou" data-en="1st Prize — Excellence in Mathematics Competition, Parakou">1er Prix — Concours Excellence en Mathématiques, Parakou</span>
+      </div>
+    </div>
+    <div class="distinction-item">
+      <div class="distinction-year">2021</div>
+      <div class="distinction-text">
+        <span data-fr="1er Prix — Concours de Mathématiques, CAEB, Parakou" data-en="1st Prize — Mathematics Competition, CAEB, Parakou">1er Prix — Concours de Mathématiques, CAEB, Parakou</span>
+      </div>
+    </div>
+    <div class="distinction-item">
+      <div class="distinction-year">2020</div>
+      <div class="distinction-text">
+        <span data-fr="BEPC — Classé parmi les 100 premiers du Bénin" data-en="BEPC — Ranked among the top 100 in Benin">BEPC — Classé parmi les 100 premiers du Bénin</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact">
+  <div class="contact-inner">
+    <div class="section-tag" style="justify-content: center;" data-fr="Contact" data-en="Contact">Contact</div>
+    <h2 class="section-title" data-fr="Travaillons ensemble" data-en="Let's work together">Travaillons ensemble</h2>
+    <p data-fr="Disponible pour des collaborations, missions freelance, ou simplement pour échanger sur l'IA et les systèmes embarqués." data-en="Available for collaborations, freelance missions, or simply to discuss AI and embedded systems.">
+      Disponible pour des collaborations, missions freelance, ou simplement pour échanger sur l'IA et les systèmes embarqués.
+    </p>
+    <div class="contact-links">
+      <a href="mailto:prosperaffoukou@outlook.com" class="contact-link">
+        ✉ Email
+      </a>
+      <a href="https://github.com/Charmel7" class="contact-link" target="_blank">
+        ⌥ GitHub
+      </a>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <p>© 2026 Prosper Charmel AFFOUKOU</p>
+  <p data-fr="Conçu et développé par Prosper" data-en="Designed & built by Prosper">Conçu et développé par Prosper</p>
+</footer>
+
+<script>
+  let lang = 'fr';
+  const btn = document.getElementById('langBtn');
+
+  function switchLang() {
+    lang = lang === 'fr' ? 'en' : 'fr';
+    btn.textContent = lang === 'fr' ? 'EN' : 'FR';
+    document.querySelectorAll('[data-fr]').forEach(el => {
+      const val = el.getAttribute('data-' + lang);
+      if (val) el.innerHTML = val;
+    });
+  }
+
+  btn.addEventListener('click', switchLang);
+
+  document.querySelectorAll('a[href^="#"]').forEach(a => {
+    a.addEventListener('click', e => {
+      e.preventDefault();
+      const target = document.querySelector(a.getAttribute('href'));
+      if (target) target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    });
+  });
+
+  const observer = new IntersectionObserver(entries => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        e.target.style.opacity = '1';
+        e.target.style.transform = 'translateY(0)';
+      }
+    });
+  }, { threshold: 0.1 });
+
+  document.querySelectorAll('.project-card, .skill-group, .distinction-item').forEach(el => {
+    el.style.opacity = '0';
+    el.style.transform = 'translateY(16px)';
+    el.style.transition = 'opacity 0.5s ease, transform 0.5s ease';
+    observer.observe(el);
+  });
+</script>
+</body>
+</html>
